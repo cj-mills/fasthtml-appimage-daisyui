@@ -86,12 +86,14 @@ def get():
                        cls=combine_classes(font_size._2xl, font_weight.bold, text_dui.primary)),
                     cls=str(navbar_start)
                 ),
+                # Div(
+                #     Span(f"Running on {platform.system()} {platform.release()}",
+                #          cls=combine_classes(badge, badge_colors.secondary)),
+                #     cls=str(navbar_center)
+                # ),
                 Div(
                     Span(f"Running on {platform.system()} {platform.release()}",
                          cls=combine_classes(badge, badge_colors.secondary)),
-                    cls=str(navbar_center)
-                ),
-                Div(
                     create_theme_selector(),
                     cls=combine_classes(flex_display, justify.end, flex(1), navbar_end)
                 ),
