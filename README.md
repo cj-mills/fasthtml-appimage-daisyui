@@ -13,13 +13,13 @@ This example demonstrates how to package a FastHTML application as a portable Li
 ## Project Structure
 
 ```
-fasthtml-appimage-daisyui/
+fasthtml-appimage-example/
 ├── src/                    # FastHTML application source
 │   └── app.py             # Main FastHTML application
-├── AppDir/                # AppImage directory structure
+├── AppDir/                # AppImage directory structure (created during build)
+├── build-resources/       # Build resource (used during build)
 │   ├── AppRun            # Entry point script
 │   └── fasthtml-demo.desktop  # Desktop entry file
-├── build-resources/       # Build artifacts (created during build)
 ├── environment.yml        # Conda environment specification
 ├── requirements.txt       # Python package requirements
 ├── build.sh              # Build script
