@@ -1,6 +1,6 @@
 # FastHTML AppImage Example
 
-This example demonstrates how to package a FastHTML application as a portable Linux AppImage using micromamba for Python environment management.
+This example demonstrates how to package a FastHTML application as a portable Linux AppImage using micromamba for Python environment management. Uses daisyUI for styling.
 
 ## Features
 
@@ -13,7 +13,7 @@ This example demonstrates how to package a FastHTML application as a portable Li
 ## Project Structure
 
 ```
-fasthtml-appimage-example/
+fasthtml-appimage-daisyui/
 ├── src/                    # FastHTML application source
 │   └── app.py             # Main FastHTML application
 ├── AppDir/                # AppImage directory structure
@@ -42,7 +42,7 @@ Optional:
 1. Clone or download this example:
 ```bash
 git clone <repository>
-cd fasthtml-appimage-example
+cd fasthtml-appimage-daisyui
 ```
 
 2. Run the build script:
@@ -219,7 +219,7 @@ The build script can be integrated into CI/CD pipelines:
 # GitHub Actions example
 - name: Build AppImage
   run: |
-    cd fasthtml-appimage-example
+    cd fasthtml-appimage-daisyui
     ./build.sh
 
 - name: Upload AppImage

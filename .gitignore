@@ -44,3 +44,6 @@ build-resources/
 dist/
 *.tar.gz
 *.zip
+
+
+*.sesskey
