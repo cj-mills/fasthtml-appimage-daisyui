@@ -33,8 +33,7 @@ from cjm_fasthtml_daisyui.core.testing import create_theme_selector
 from cjm_fasthtml_tailwind.utilities.spacing import p, m, space
 from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import flex_display, gap, grid_cols, items, justify, grid_display
 from cjm_fasthtml_tailwind.utilities.sizing import w, h, max_w, min_h
-from cjm_fasthtml_tailwind.utilities.typography import text_color, font_size, font_weight, text_align, font_family, break_all
-from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+from cjm_fasthtml_tailwind.utilities.typography import font_size, font_weight, text_align, font_family, break_all
 from cjm_fasthtml_tailwind.utilities.borders import rounded
 from cjm_fasthtml_tailwind.utilities.effects import shadow
 from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import flex
