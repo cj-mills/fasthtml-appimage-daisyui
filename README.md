@@ -1,4 +1,4 @@
-# FastHTML AppImage Example w/daisyUI
+# FastHTML AppImage with daisyUI
 
 This example demonstrates how to package a FastHTML application as a portable Linux AppImage using micromamba for Python environment management. Uses daisyUI for styling.
 
