@@ -22,9 +22,8 @@ from cjm_fasthtml_daisyui.components.data_display.card import card, card_body, c
 from cjm_fasthtml_daisyui.components.data_display.badge import badge, badge_colors, badge_sizes
 from cjm_fasthtml_daisyui.components.data_display.stat import stat, stat_title, stat_value, stat_desc, stats
 from cjm_fasthtml_daisyui.components.data_display.list import list_ui, list_row
-from cjm_fasthtml_daisyui.components.data_input.text_input import text_input, text_input_colors
+from cjm_fasthtml_daisyui.components.data_input.text_input import text_input, text_input_colors, text_input_sizes
 from cjm_fasthtml_daisyui.components.navigation.navbar import navbar, navbar_start, navbar_center, navbar_end
-from cjm_fasthtml_daisyui.components.layout.hero import hero, hero_content
 from cjm_fasthtml_daisyui.components.layout.divider import divider
 from cjm_fasthtml_daisyui.utilities.semantic_colors import bg_dui, text_dui, border_dui
 from cjm_fasthtml_daisyui.core.resources import get_daisyui_headers
@@ -32,7 +31,7 @@ from cjm_fasthtml_daisyui.core.testing import create_theme_selector
 
 # Tailwind imports
 from cjm_fasthtml_tailwind.utilities.spacing import p, m, space
-from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import flex_display, gap, grid_cols, items, justify, grid_display
+from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import flex_display, gap, grid_cols, items, justify, grid_display, flex
 from cjm_fasthtml_tailwind.utilities.sizing import w, h, max_w, min_h
 from cjm_fasthtml_tailwind.utilities.typography import font_size, font_weight, text_align, font_family, break_all
 from cjm_fasthtml_tailwind.utilities.borders import rounded
@@ -78,57 +77,59 @@ counter = 0
 @rt('/')
 def get():
     return Div(
-        # Navbar
+        # Navbar - improved with neutral colors and subtle shadow
         Div(
             Div(
                 Div(
                     H1("FastHTML AppImage Demo",
-                       cls=combine_classes(font_size._2xl, font_weight.bold, text_dui.primary)),
+                       cls=combine_classes(font_size._2xl, font_weight.bold, text_dui.base_content)),
                     cls=str(navbar_start)
                 ),
-                # Div(
-                #     Span(f"Running on {platform.system()} {platform.release()}",
-                #          cls=combine_classes(badge, badge_colors.secondary)),
-                #     cls=str(navbar_center)
-                # ),
                 Div(
                     Span(f"Running on {platform.system()} {platform.release()}",
-                         cls=combine_classes(badge, badge_colors.secondary)),
+                         cls=combine_classes(badge, badge_colors.neutral, badge_sizes.md)),
                     create_theme_selector(),
-                    cls=combine_classes(flex_display, justify.end, flex(1), navbar_end)
+                    cls=combine_classes(flex_display, justify.end, items.center, gap(3), navbar_end)
                 ),
-                cls=combine_classes(navbar, bg_dui.base_200, shadow.lg, p(4))
+                cls=combine_classes(navbar, bg_dui.base_100, shadow.sm, p(4))
             )
         ),
 
         # Main content container
         Div(
-            # Hero section with system info
+            # Simplified hero - system info badge strip
             Div(
                 Div(
-                    H2(f"Python {sys.version.split()[0]}",
-                       cls=combine_classes(font_size.xl, font_weight.semibold, text_dui.base_content)),
-                    P(f"Server: {HOST}:{PORT}",
-                      cls=combine_classes(text_dui.base_content)),
-                    cls=combine_classes(hero_content, text_align.center)
+                    Span(f"Python {sys.version.split()[0]}",
+                         cls=combine_classes(badge, badge_colors.neutral, badge_sizes.lg)),
+                    Span(f"Server: {HOST}:{PORT}",
+                         cls=combine_classes(badge, badge_colors.neutral, badge_sizes.lg)),
+                    Span(f"PID: {os.getpid()}",
+                         cls=combine_classes(badge, badge_colors.neutral, badge_sizes.lg)),
+                    cls=combine_classes(flex_display, justify.center, gap(2), flex.wrap)
                 ),
-                cls=combine_classes(hero, bg_dui.base_200, rounded.lg, m.y(4))
+                cls=combine_classes(p.y(4), m.b(2))
             ),
 
             # Grid layout for main sections
             Div(
-                # Counter demo card
+                # Counter demo card - simplified and enhanced
                 Card(
                     Div(
-                        H2("Counter Demo", cls=combine_classes(card_title, text_dui.primary)),
+                        H2("Counter", cls=combine_classes(card_title, text_dui.base_content)),
+                        P("Click to increment the counter", cls=combine_classes(
+                            font_size.sm,
+                            text_dui.base_content.opacity(70),
+                            m.b(6)
+                        )),
                         Div(
-                            Div(
-                                Span(f"Count: ", cls=str(font_weight.medium)),
-                                Span(counter, id="counter",
-                                     cls=combine_classes(font_size._2xl, font_weight.bold, text_dui.primary)),
-                                cls=combine_classes(stat_value, m.y(4))
-                            ),
-                            cls=str(stat)
+                            Span(counter, id="counter",
+                                 cls=combine_classes(
+                                     font_size._5xl,
+                                     font_weight.bold,
+                                     text_dui.primary
+                                 )),
+                            cls=combine_classes(text_align.center, m.y(8))
                         ),
                         Div(
                             Button("Increment",
@@ -140,66 +141,73 @@ def get():
                         ),
                         cls=str(card_body)
                     ),
-                    cls=combine_classes(card, bg_dui.base_100, shadow.xl)
+                    cls=combine_classes(card, bg_dui.base_100, shadow.md)
                 ),
 
-                # Todo list card
+                # Todo list card - improved consistency and styling
                 Card(
                     Div(
-                        H2("Todo List", cls=combine_classes(card_title, text_dui.secondary)),
+                        H2("Todo List", cls=combine_classes(card_title, text_dui.base_content)),
+                        P("Add and track your tasks", cls=combine_classes(
+                            font_size.sm,
+                            text_dui.base_content.opacity(70),
+                            m.b(4)
+                        )),
                         Form(
-                            Div(
-                                Input(type="text", name="task",
-                                      placeholder="Enter a task...",
-                                      required=True,
-                                      cls=combine_classes(text_input, text_input_colors.secondary, w.full)),
-                                cls=str(m.b(4))
-                            ),
+                            Input(type="text", name="task",
+                                  placeholder="What needs to be done?",
+                                  required=True,
+                                  cls=combine_classes(text_input, text_input_sizes.md, w.full)),
                             Button("Add Task", type="submit",
-                                   cls=combine_classes(btn, btn_colors.secondary, w.full)),
+                                   cls=combine_classes(btn, btn_colors.primary, btn_sizes.md, m.t(2), w.full)),
                             hx_post="/add-todo",
                             hx_target="#todo-list",
                             hx_swap="innerHTML",
                             hx_on="htmx:afterRequest: this.reset()",
                             cls=str(space.y(2))
                         ),
-                        Div(cls=str(divider)),
                         Div(
-                            Ul(*[Li(todo, cls=combine_classes(p(2), bg_dui.base_200.hover, rounded.md, m.y(1)))
+                            Ul(*[Li(todo, cls=combine_classes(
+                                    p(3),
+                                    bg_dui.base_200,
+                                    rounded.lg,
+                                    text_dui.base_content,
+                                    bg_dui.base_300.hover,
+                                    m.b(2)
+                                ))
                                 for todo in todos],
                                id="todo-list",
-                               cls=str(space.y(2))),
-                            cls=str(min_h(24))
+                               cls=str(space.y(1))),
+                            cls=combine_classes(min_h(32), m.t(4))
                         ),
                         cls=str(card_body)
                     ),
-                    cls=combine_classes(card, bg_dui.base_100, shadow.xl)
+                    cls=combine_classes(card, bg_dui.base_100, shadow.md)
                 ),
 
                 cls=combine_classes(grid_display, grid_cols(1).md, grid_cols(2).lg, gap(6))
             ),
 
-            # System information section
+            # System information section - consistent styling
             Card(
                 Div(
                     Div(
-                        H2("System Information", cls=combine_classes(card_title, text_dui.accent)),
+                        H2("System Information", cls=combine_classes(card_title, text_dui.base_content)),
                         Button("Refresh",
-                               cls=combine_classes(btn, btn_colors.accent, btn_sizes.sm),
+                               cls=combine_classes(btn, btn_colors.primary, btn_sizes.sm, btn_styles.ghost),
                                hx_get="/system-info",
                                hx_target="#system-info",
                                hx_swap="outerHTML"),
                         cls=combine_classes(flex_display, justify.between, items.center)
                     ),
-                    Div(cls=str(divider)),
                     Div(
                         *system_info_stats(),
-                        cls=combine_classes(stats, bg_dui.base_200, rounded.lg, w.full)
+                        cls=combine_classes(stats, bg_dui.base_200, rounded.lg, w.full, m.t(4))
                     ),
                     cls=str(card_body),
                     id="system-info"
                 ),
-                cls=combine_classes(card, bg_dui.base_100, shadow.xl, m.t(6))
+                cls=combine_classes(card, bg_dui.base_100, shadow.md, m.t(6))
             ),
 
             # Launch options info - improved card design
@@ -280,7 +288,7 @@ def get():
                     ),
                     cls=str(card_body)
                 ),
-                cls=combine_classes(card, bg_dui.base_100, shadow.xl, m.t(6))
+                cls=combine_classes(card, bg_dui.base_100, shadow.md, m.t(6))
             ),
 
             cls=combine_classes(p(6), max_w.screen_2xl, m.auto)
@@ -323,32 +331,42 @@ def increment():
     global counter
     counter += 1
     return Span(counter, id="counter",
-                cls=combine_classes(font_size._2xl, font_weight.bold, text_dui.primary))
+                cls=combine_classes(
+                    font_size._5xl,
+                    font_weight.bold,
+                    text_dui.primary
+                ))
 
 @rt('/add-todo', methods=['POST'])
 def add_todo(task: str):
     todos.append(task)
-    return Ul(*[Li(todo, cls=combine_classes(p(2), bg_dui.base_200.hover, rounded.md, m.y(1)))
+    return Ul(*[Li(todo, cls=combine_classes(
+                  p(3),
+                  bg_dui.base_200,
+                  rounded.lg,
+                  text_dui.base_content,
+                  bg_dui.base_300.hover,
+                  m.b(2)
+              ))
               for todo in todos],
               id="todo-list",
-              cls=str(space.y(2)))
+              cls=str(space.y(1)))
 
 @rt('/system-info')
 def system_info():
     return Div(
         Div(
-            H2("System Information", cls=combine_classes(card_title, text_dui.accent)),
+            H2("System Information", cls=combine_classes(card_title, text_dui.base_content)),
             Button("Refresh",
-                   cls=combine_classes(btn, btn_colors.accent, btn_sizes.sm),
+                   cls=combine_classes(btn, btn_colors.primary, btn_sizes.sm, btn_styles.ghost),
                    hx_get="/system-info",
                    hx_target="#system-info",
                    hx_swap="outerHTML"),
             cls=combine_classes(flex_display, justify.between, items.center)
         ),
-        Div(cls=str(divider)),
         Div(
             *system_info_stats(),
-            cls=combine_classes(stats, bg_dui.base_200, rounded.lg, w.full)
+            cls=combine_classes(stats, bg_dui.base_200, rounded.lg, w.full, m.t(4))
         ),
         cls=str(card_body),
         id="system-info"
