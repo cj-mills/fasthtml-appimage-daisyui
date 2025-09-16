@@ -1,6 +1,6 @@
 # FastHTML AppImage with daisyUI
 
-This example demonstrates how to package a FastHTML application as a portable Linux AppImage using micromamba for Python environment management. Uses daisyUI for styling.
+This example demonstrates how to package a FastHTML application as a portable Linux AppImage using micromamba for Python environment management. Uses [`cjm-fasthtml-daisyui`](https://github.com/cj-mills/cjm-fasthtml-daisyui) library for styling with [daisyUI](https://daisyui.com/).
 
 ## Features
 
