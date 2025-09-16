@@ -4,6 +4,7 @@ Minimal FastHTML application demonstrating AppImage packaging with DaisyUI and T
 """
 
 from fasthtml.common import *
+from fasthtml.common import Code
 import os
 import sys
 import subprocess
@@ -18,13 +19,13 @@ from pathlib import Path
 # DaisyUI imports
 from cjm_fasthtml_daisyui.components.actions.button import btn, btn_colors, btn_sizes, btn_styles
 from cjm_fasthtml_daisyui.components.data_display.card import card, card_body, card_title, card_actions
-from cjm_fasthtml_daisyui.components.data_display.badge import badge, badge_colors
+from cjm_fasthtml_daisyui.components.data_display.badge import badge, badge_colors, badge_sizes
 from cjm_fasthtml_daisyui.components.data_display.stat import stat, stat_title, stat_value, stat_desc, stats
+from cjm_fasthtml_daisyui.components.data_display.list import list_ui, list_row
 from cjm_fasthtml_daisyui.components.data_input.text_input import text_input, text_input_colors
 from cjm_fasthtml_daisyui.components.navigation.navbar import navbar, navbar_start, navbar_center, navbar_end
 from cjm_fasthtml_daisyui.components.layout.hero import hero, hero_content
 from cjm_fasthtml_daisyui.components.layout.divider import divider
-from cjm_fasthtml_daisyui.components.feedback.alert import alert, alert_colors
 from cjm_fasthtml_daisyui.utilities.semantic_colors import bg_dui, text_dui, border_dui
 from cjm_fasthtml_daisyui.core.resources import get_daisyui_headers
 from cjm_fasthtml_daisyui.core.testing import create_theme_selector
@@ -201,32 +202,85 @@ def get():
                 cls=combine_classes(card, bg_dui.base_100, shadow.xl, m.t(6))
             ),
 
-            # Launch options info
-            Div(
+            # Launch options info - improved card design
+            Card(
                 Div(
-                    H3("Launch Options", cls=combine_classes(font_size.lg, font_weight.semibold, text_dui.info_content)),
-                    P("Configure how this app opens:", cls=str(text_dui.info_content)),
-                    cls=str(m.b(2))
+                    H3("Launch Options", cls=combine_classes(card_title, text_dui.base_content)),
+                    P("Configure how this application starts", cls=combine_classes(
+                        font_size.sm,
+                        text_dui.base_content.opacity(70),
+                        m.b(4)
+                    )),
+                    Ul(
+                        Li(
+                            Div(
+                                Code("app", cls=combine_classes(
+                                    badge,
+                                    badge_colors.primary,
+                                    badge_sizes.lg,
+                                    font_family.mono
+                                ))
+                            ),
+                            Div(
+                                Div("Standalone Window", cls=combine_classes(
+                                    font_weight.medium,
+                                    text_dui.base_content
+                                )),
+                                Div("FASTHTML_BROWSER=app", cls=combine_classes(
+                                    font_size.sm,
+                                    font_family.mono,
+                                    text_dui.base_content.opacity(60)
+                                ))
+                            ),
+                            cls=str(list_row)
+                        ),
+                        Li(
+                            Div(
+                                Code("none", cls=combine_classes(
+                                    badge,
+                                    badge_colors.warning,
+                                    badge_sizes.lg,
+                                    font_family.mono
+                                ))
+                            ),
+                            Div(
+                                Div("Server Only", cls=combine_classes(
+                                    font_weight.medium,
+                                    text_dui.base_content
+                                )),
+                                Div("FASTHTML_BROWSER=none", cls=combine_classes(
+                                    font_size.sm,
+                                    font_family.mono,
+                                    text_dui.base_content.opacity(60)
+                                ))
+                            ),
+                            cls=str(list_row)
+                        ),
+                        Li(
+                            Div(
+                                Span("Default", cls=combine_classes(
+                                    badge,
+                                    badge_colors.success,
+                                    badge_sizes.lg
+                                ))
+                            ),
+                            Div(
+                                Div("Default Browser", cls=combine_classes(
+                                    font_weight.medium,
+                                    text_dui.base_content
+                                )),
+                                Div("Opens in your default web browser", cls=combine_classes(
+                                    font_size.sm,
+                                    text_dui.base_content.opacity(60)
+                                ))
+                            ),
+                            cls=str(list_row)
+                        ),
+                        cls=combine_classes(list_ui, bg_dui.base_200, rounded.lg, p(2))
+                    ),
+                    cls=str(card_body)
                 ),
-                Div(
-                    Div("FASTHTML_BROWSER=app",
-                        cls=combine_classes(badge, badge_colors.primary, font_family.mono)),
-                    Span(" for standalone window mode", cls=str(text_dui.info_content)),
-                    cls=str(m.y(2))
-                ),
-                Div(
-                    Div("FASTHTML_BROWSER=none",
-                        cls=combine_classes(badge, badge_colors.warning, font_family.mono)),
-                    Span(" to not open browser automatically", cls=str(text_dui.info_content)),
-                    cls=str(m.y(2))
-                ),
-                Div(
-                    Div("Default",
-                        cls=combine_classes(badge, badge_colors.success)),
-                    Span(" Opens in your default browser", cls=str(text_dui.info_content)),
-                    cls=str(m.y(2))
-                ),
-                cls=combine_classes(alert, alert_colors.info, m.t(6))
+                cls=combine_classes(card, bg_dui.base_100, shadow.xl, m.t(6))
             ),
 
             cls=combine_classes(p(6), max_w.screen_2xl, m.auto)
