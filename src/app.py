@@ -64,9 +64,7 @@ else:
 # Create the FastHTML app with DaisyUI headers
 app, rt = fast_app(
     pico=False,
-    hdrs=get_daisyui_headers() + [
-        Script(src='https://unpkg.com/htmx.org@2.0.7'),
-    ],
+    hdrs=[*get_daisyui_headers()],
     title="FastHTML AppImage Demo"
 )
 
